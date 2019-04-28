@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
 	int i, j;
-	int n = 500, m = 100;
+	int n = 500, m = 1000;
 
 	int** matrix = new int*[n];
 	for (i = 0; i < n; i++) {
