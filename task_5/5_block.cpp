@@ -29,11 +29,11 @@ int main() {
 				result[i] = 0;
 			}
 
-#pragma omp parallel shared(matrix, vector, result) num_threads(threads_num)
+			#pragma omp parallel shared(matrix, vector, result) num_threads(threads_num)
 			{
 				int b = omp_get_num_threads();
 				int block_size = n / b;
-#pragma omp for
+				#pragma omp for
 				for (int block_num = 0; block_num < b * b; block_num++) {
 					int i = block_num / b;
 					int j = block_num % b;
