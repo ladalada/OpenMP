@@ -10,6 +10,7 @@ int main() {
 	double IntegralSuccessively = 0.0;
 	double IntegralParallelWithoutReduction = 0.0;
 	double IntegralParallelWithReduction = 0.0;
+	
 	double a = 0.0, b = 1.0;
 	double h = 0.01;
 
