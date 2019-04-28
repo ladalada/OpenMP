@@ -58,7 +58,7 @@ int main() {
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < n; j++) {
 			result2[i][j] = 0;
-#pragma omp parallel for reduction(+:result2[i][j])
+			#pragma omp parallel for reduction(+:result2[i][j])
 			for (int k = 0; k < m; k++) {
 				result2[i][j] += matrix1[i][k] * matrix2[k][j];
 			}
