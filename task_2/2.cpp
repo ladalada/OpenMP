@@ -4,15 +4,16 @@
 using namespace std;
 
 int main() {
+	int n = 100000;
 	double DotProductSuccessively = 0.0;
 	double DotProductParallel = 0.0;
-
-	int n = 100000;
+	
 	vector<int> v1;
 	for (int i = 0; i < n; i++) {
 		int b = rand() % 10 + 1;
 		v1.push_back(b);
 	}
+	
 	vector<int> v2;
 	for (int i = 0; i < n; i++) {
 		int b = rand() % 10 + 1;
