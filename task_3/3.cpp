@@ -3,23 +3,22 @@
 using namespace std;
 
 int main() {
-	int i, j;
-	int n = 500, m = 1000;
+	int n = 1000, m = 10000;
 
 	int** matrix = new int*[n];
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		matrix[i] = new int[m];
-		for (j = 0; j < m; j++) {
-			matrix[i][j] = rand() % 50 + 1;
+		for (int j = 0; j < m; j++) {
+			matrix[i][j] = rand() % 100 + 1;
 		}
 	}
 
 	//Successively
 	int elMin1, elMaxOfMin1 = 0;
 	double t1 = omp_get_wtime();
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		elMin1 = matrix[i][0];
-		for (j = 1; j < m; j++) {
+		for (int j = 1; j < m; j++) {
 			if (matrix[i][j] < elMin1) {
 				elMin1 = matrix[i][j];
 			}
@@ -36,11 +35,11 @@ int main() {
 	//Parallel
 	int elMin2, elMaxOfMin2 = 0;
 	double t2 = omp_get_wtime();
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		elMin2 = matrix[i][0];
 
 		#pragma omp parallel for
-		for (j = 1; j < m; j++) {
+		for (int j = 1; j < m; j++) {
 			if (matrix[i][j] < elMin2) {
 				elMin2 = matrix[i][j];
 			}
