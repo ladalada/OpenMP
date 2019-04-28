@@ -3,21 +3,20 @@
 using namespace std;
 
 int main() {
-	int i, j;
-	int n = 100, m = 100;
+	int n = 500, m = 1000;
 
 	int** matrix1 = new int*[n];
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		matrix1[i] = new int[m];
-		for (j = 0; j < m; j++) {
+		for (int j = 0; j < m; j++) {
 			matrix1[i][j] = rand() % 10 + 1;
 		}
 	}
 
 	int** matrix2 = new int*[m];
-	for (i = 0; i < m; i++) {
+	for (int i = 0; i < m; i++) {
 		matrix2[i] = new int[n];
-		for (j = 0; j < n; j++) {
+		for (int j = 0; j < n; j++) {
 			matrix2[i][j] = rand() % 10 + 1;
 		}
 	}
@@ -44,7 +43,7 @@ int main() {
 	}
 	double t11 = omp_get_wtime();
 
-	cout << "MatrixProductSuccessively = " << "\n";
+	cout << "MatrixMultiplicationSuccessively = " << "\n";
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 3; j++) {
 			cout << result1[i][j] << " ";
@@ -55,18 +54,21 @@ int main() {
 
 	//Parallel
 	double t2 = omp_get_wtime();
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			result2[i][j] = 0;
-			#pragma omp parallel for reduction(+:result2[i][j])
-			for (int k = 0; k < m; k++) {
-				result2[i][j] += matrix1[i][k] * matrix2[k][j];
+	#pragma omp parallel shared(matrix1, matrix2)
+	{
+		for (int i = 0; i < n; i++) {
+			#pragma omp for nowait
+			for (int j = 0; j < n; j++) {
+				result2[i][j] = 0;
+				for (int k = 0; k < m; k++) {
+					result2[i][j] += matrix1[i][k] * matrix2[k][j];
+				}
 			}
 		}
 	}
 	double t22 = omp_get_wtime();
 
-	cout << "MatrixProductParallel = " << "\n";
+	cout << "MatrixMultiplicationParallel = " << "\n";
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 3; j++) {
 			cout << result2[i][j] << " ";
