@@ -32,7 +32,7 @@ int main() {
 
 	//Parallel
 	double t2 = omp_get_wtime();
-	#pragma omp parallel for reduction(+:DotProductParallel)
+	#pragma omp parallel for reduction(+:ScalarProductParallel)
 	for (int i = 0; i < n; i++) {
 		ScalarProductParallel += v1[i] * v2[i];
 	}
